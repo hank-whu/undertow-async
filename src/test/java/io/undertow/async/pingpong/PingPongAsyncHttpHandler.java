@@ -1,8 +1,3 @@
-# undertow-async
-undertow-async for reactive
-
-
-```java
 package io.undertow.async.pingpong;
 
 import java.io.IOException;
@@ -58,5 +53,3 @@ public class PingPongAsyncHttpHandler extends AsyncHttpHandler {
 	}
 
 }
-
-```
