@@ -66,7 +66,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 		HttpString httpMethod = exchange.getRequestMethod();
 
 		if (httpMethod == Methods.GET) {
-			internalAsycnRequest(exchange, null);
+			internalAsyncRequest(exchange, null);
 			return;
 		}
 
@@ -160,7 +160,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 					});
 
 					channel.resumeReads();
-					internalAsycnRequest(exchange, bufferList);
+					internalAsyncRequest(exchange, bufferList);
 
 					return;
 				} else if (!b.hasRemaining()) {
@@ -171,7 +171,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 			} while (true);
 
 			Connectors.resetRequestChannel(exchange);
-			internalAsycnRequest(exchange, bufferList);
+			internalAsyncRequest(exchange, bufferList);
 		} catch (Throwable e) {
 			release(bufferList);
 
@@ -183,7 +183,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 		}
 	}
 
-	private void internalAsycnRequest(final HttpServerExchange exchange, ArrayList<PooledByteBuffer> bufferList)
+	private void internalAsyncRequest(final HttpServerExchange exchange, ArrayList<PooledByteBuffer> bufferList)
 			throws Exception {
 		// ensure exchange not end
 		getResponseChannel(exchange).resumeWrites();
@@ -195,7 +195,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 			buffers = bufferList.toArray(buffers);
 		}
 
-		handleAsycnRequest(exchange, new PooledByteBufferInputStream(buffers));
+		handleAsyncRequest(exchange, new PooledByteBufferInputStream(buffers));
 	}
 
 	/**
@@ -209,7 +209,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 	 * 
 	 * @throws Exception
 	 */
-	protected abstract void handleAsycnRequest(final HttpServerExchange exchange, PooledByteBufferInputStream content)
+	protected abstract void handleAsyncRequest(final HttpServerExchange exchange, PooledByteBufferInputStream content)
 			throws Exception;
 
 	/**

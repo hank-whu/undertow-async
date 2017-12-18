@@ -18,17 +18,18 @@ import io.undertow.util.StatusCodes;
 public class PingPongAsyncHttpHandler extends AsyncHttpHandler {
 
 	@Override
-	protected void handleAsycnRequest(HttpServerExchange exchange, PooledByteBufferInputStream content)
+	protected void handleAsyncRequest(HttpServerExchange exchange, PooledByteBufferInputStream content)
 			throws Exception {
 
-		CompletableFuture.completedFuture(content)// init
+		CompletableFuture//
+				.completedFuture(content)// init
 				.thenApplyAsync(this::readBytesAndClose)// read
 				.thenApplyAsync(bytes -> {// write
 					ByteBufferPool byteBufferPool = exchange.getConnection().getByteBufferPool();
 					PooledByteBufferOutputStream output = new PooledByteBufferOutputStream(byteBufferPool);
 					write(output, bytes);
 					return output;
-				})
+				})//
 				.thenAcceptAsync(output -> send(exchange, StatusCodes.OK, output));
 	}
 
@@ -58,5 +59,6 @@ public class PingPongAsyncHttpHandler extends AsyncHttpHandler {
 	}
 
 }
+
 
 ```
