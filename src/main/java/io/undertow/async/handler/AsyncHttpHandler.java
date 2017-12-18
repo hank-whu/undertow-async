@@ -90,7 +90,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 			long count = (contentLength + bufferLength - 1) / bufferLength;// ceil div
 			bufferList = new ArrayList<>((int) count);
 		} else {
-			bufferList = new ArrayList<>(4);// common enough
+			bufferList = new ArrayList<>(8);// usually enough
 		}
 
 		final StreamSourceChannel channel = exchange.getRequestChannel();
