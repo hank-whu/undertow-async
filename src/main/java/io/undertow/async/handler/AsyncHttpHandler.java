@@ -62,7 +62,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 	private static final long asyncSenderImplPooledBuffersFieldOffset;
 
 	@Override
-	final public void handleRequest(final HttpServerExchange exchange) throws Exception {
+	final public void handleRequest(HttpServerExchange exchange) throws Exception {
 		HttpString httpMethod = exchange.getRequestMethod();
 
 		if (httpMethod == Methods.GET) {
@@ -209,7 +209,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 	 * 
 	 * @throws Exception
 	 */
-	protected abstract void handleAsyncRequest(final HttpServerExchange exchange, PooledByteBufferInputStream content)
+	protected abstract void handleAsyncRequest(HttpServerExchange exchange, PooledByteBufferInputStream content)
 			throws Exception;
 
 	/**
@@ -219,7 +219,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 	 * @param statusCode
 	 * @param msg
 	 */
-	final protected void send(final HttpServerExchange exchange, final int statusCode, final String msg) {
+	protected final void send(HttpServerExchange exchange, int statusCode, String msg) {
 		ByteBufferPool pool = exchange.getConnection().getByteBufferPool();
 		PooledByteBufferOutputStream output = new PooledByteBufferOutputStream(pool);
 
@@ -240,8 +240,7 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 	 * @param output
 	 *            auto release
 	 */
-	final protected void send(final HttpServerExchange exchange, final int statusCode,
-			PooledByteBufferOutputStream output) {
+	protected final void send(HttpServerExchange exchange, int statusCode, PooledByteBufferOutputStream output) {
 		try {
 			output.flip();
 

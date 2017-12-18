@@ -24,7 +24,7 @@ import sun.misc.Unsafe;
  *
  */
 @SuppressWarnings("restriction")
-public class UnsafeUtils {
+public final class UnsafeUtils {
 	final static private Unsafe _unsafe;
 
 	static {

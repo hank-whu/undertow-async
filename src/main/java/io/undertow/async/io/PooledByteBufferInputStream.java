@@ -28,7 +28,7 @@ import io.undertow.connector.PooledByteBuffer;
  * @author hank.whu@gmail.com
  *
  */
-public class PooledByteBufferInputStream extends InputStream {
+public final class PooledByteBufferInputStream extends InputStream {
 	public static final PooledByteBuffer[] EMPTY_BUFFERS = new PooledByteBuffer[0];
 
 	private PooledByteBuffer[] buffers;

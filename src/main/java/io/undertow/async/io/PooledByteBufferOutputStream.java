@@ -33,7 +33,7 @@ import io.undertow.connector.PooledByteBuffer;
  * @author hank.whu@gmail.com
  *
  */
-public class PooledByteBufferOutputStream extends OutputStream {
+public final class PooledByteBufferOutputStream extends OutputStream {
 	private final ByteBufferPool byteBufferPool;
 	private ArrayList<PooledByteBuffer> pooledList = new ArrayList<>(4);
 	private int index = -1;
