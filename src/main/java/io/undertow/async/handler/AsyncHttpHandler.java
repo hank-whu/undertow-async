@@ -252,12 +252,8 @@ public abstract class AsyncHttpHandler implements HttpHandler {
 			setPooledBuffers(sender, output.getPooledByteBuffers());
 
 			sender.send(output.getByteBuffers());
-		} catch (Exception e) {
-			if (e instanceof IOException) {
-				UndertowLogger.REQUEST_IO_LOGGER.ioException((IOException) e);
-			} else {
-				UndertowLogger.REQUEST_IO_LOGGER.handleUnexpectedFailure(e);
-			}
+		} catch (Throwable t) {
+			UndertowLogger.REQUEST_IO_LOGGER.handleUnexpectedFailure(t);
 		}
 	}
 
